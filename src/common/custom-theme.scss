@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+
+$custom-theme-primary: mat.define-palette(mat.$teal-palette, 500);
+$custom-theme-accent: mat.define-palette(mat.$pink-palette);
+$custom-theme-warn: mat.define-palette(mat.$indigo-palette);
+
+$custom-theme: mat.define-light-theme((
+ color: (
+   primary: $custom-theme-primary,
+   accent: $custom-theme-accent,
+   warn: $custom-theme-warn,
+ ),
+ density: 0,
+));
+
+@include mat.core-theme($custom-theme);
+
+@include mat.button-theme($custom-theme);
+
