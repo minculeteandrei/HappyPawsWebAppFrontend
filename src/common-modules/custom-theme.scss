@@ -12,10 +12,10 @@ $custom-theme: mat.define-light-theme((
    accent: $custom-theme-accent,
    warn: $custom-theme-warn,
  ),
+ typography: mat.define-typography-config(),
  density: 0,
 ));
 
-@include mat.core-theme($custom-theme);
+@include mat.all-component-themes($custom-theme);
 
-@include mat.button-theme($custom-theme);
 

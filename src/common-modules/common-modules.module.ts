@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainNavbarComponent } from './components/main-navbar/main-navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +11,6 @@ import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
-    MainNavbarComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +19,9 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+  ],
+  exports: [
   ]
 })
 export class CommonModulesModule { }
