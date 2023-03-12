@@ -8,8 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MainNavbarComponent } from './components/main-navbar/main-navbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MainNavbarComponent } from 'src/common-modules/components/main-navbar/main-navbar.component';
 
 
 @NgModule({
