@@ -4,3 +4,17 @@
     background-attachment: fixed;
     height: 100%;
 }
+
+.main-text {
+    color: white;
+    font-size: 120px;
+    line-height: 1.2em;
+}
+
+@media (max-width: 768px) {
+    .main-text {
+        color: white;
+        font-size: 90px;
+        line-height: 1.2em;
+    }
+}
