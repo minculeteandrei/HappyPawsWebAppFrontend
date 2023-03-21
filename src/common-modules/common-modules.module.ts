@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MainNavbarComponent } from './components/main-navbar/main-navbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,

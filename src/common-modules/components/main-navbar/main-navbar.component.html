@@ -24,13 +24,15 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>vet_app_frontend</span>
+      <a routerLink="/">
+        vet_app_frontend
+      </a>
       <span fxFlex></span>
       <div fxHide fxShow.gt-xs>
-        <a href="#">Galerie</a>
-        <a href="#">Servicii</a>
-        <a href="#">Programari</a>
-        <a href="#">Contact</a>
+        <a [routerLink]="[paths.GALLERY_PAGE]">Galerie</a>
+        <a [routerLink]="[paths.SERVICII_PAGE]">Servicii</a>
+        <a [routerLink]="[paths.APPOINTMENTS_PAGE]">Programari</a>
+        <a [routerLink]="[paths.CONTACT_PAGE]">Contact</a>
       </div>
     </mat-toolbar> 
     <ng-content></ng-content>
