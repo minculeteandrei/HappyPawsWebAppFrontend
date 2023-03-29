@@ -20,4 +20,8 @@ export class MainNavbarComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
+  onNavigateFromSidenav(path: string) {
+    
+  }
+
 }

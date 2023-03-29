@@ -11,7 +11,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
 
-
 @NgModule({
   declarations: [
     MainNavbarComponent

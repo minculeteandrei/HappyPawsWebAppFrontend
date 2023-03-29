@@ -8,10 +8,10 @@
       <span>Menu</span>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Galerie</a>
-      <a mat-list-item href="#">Servicii</a>
-      <a mat-list-item href="#">Programari</a>
-      <a mat-list-item href="#">Contact</a>
+      <a mat-list-item (click)="onNavigateFromSidenav(paths.GALLERY_PAGE)">Galerie</a>
+      <a mat-list-item [routerLink]="[paths.SERVICII_PAGE]">Servicii</a>
+      <a mat-list-item [routerLink]="[paths.APPOINTMENTS_PAGE]">Programari</a>
+      <a mat-list-item [routerLink]="[paths.CONTACT_PAGE]">Contact</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
