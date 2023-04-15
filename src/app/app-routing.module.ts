@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { 
     path: 'galerie', 
-    loadChildren: () => import('./modules/gallery/gallery.module').then(m => m.GalleryModule)  
+    loadChildren: () => import('./modules/gallery/gallery.module').then(m => m.GalleryPageModule)  
   },
   { 
     path: 'servicii', 

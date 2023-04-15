@@ -9,11 +9,13 @@ import { MatListModule } from '@angular/material/list';
 import { MainNavbarComponent } from './components/main-navbar/main-navbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 
 @NgModule({
   declarations: [
-    MainNavbarComponent
+    MainNavbarComponent,
+    CarouselComponent
   ],
   imports: [
     CommonModule,

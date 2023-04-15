@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleryPageComponent } from './components/gallery-page/gallery-page.component';
 import { GalleryRoutingModule } from './gallery-routing.module';
-
-
+import { GalleryModule } from  'ng-gallery';
+import {MatCardModule} from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,11 @@ import { GalleryRoutingModule } from './gallery-routing.module';
   ],
   imports: [
     CommonModule,
-    GalleryRoutingModule
+    GalleryRoutingModule,
+    GalleryModule,
+    MatCardModule,
+    FlexLayoutModule,
+
   ]
 })
-export class GalleryModule { }
+export class GalleryPageModule { }
