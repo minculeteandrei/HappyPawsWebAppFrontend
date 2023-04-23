@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     FlexLayoutModule,
     ServiciiRoutingModule,
-    MatButtonModule
+    MatButtonModule,
   ]
 })
 export class ServiciiModule { }
