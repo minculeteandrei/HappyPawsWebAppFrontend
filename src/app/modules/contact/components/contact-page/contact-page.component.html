@@ -1,5 +1,5 @@
 <div class="smth">
-    <div class="container xl:max-w-screen-xl mx-auto px-4 md:flex md:flex-row white">
+    <div class="container lg:max-w-screen-lg mx-auto px-4 md:flex md:flex-row">
         <div class="basis-5/12">
             <p class="text-2xl font-medium mb-10 pt-10">Contact clinica veterinara</p>
             <div class="grid grid-rows-4 gap-2 ml-6">
@@ -22,13 +22,34 @@
             </div>
             <!-- <p class="text-2xl font-medium mt-12 ml-6">Lasa-ne o nota:</p> -->
         </div>
-        <div class="basis-7/12">
+        <div class="basis-7/12 max-md:px-6">
             <p class="text-2xl font-medium mb-10 pt-10">Trimite-ne un mesaj:</p>
-            <mat-form-field appearance="fill">
-                <mat-label>Input</mat-label>
-                <input matInput>
-            </mat-form-field>
-            
+            <form class="flex flex-col md:max-w-xs">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nume Complet</mat-label>
+                    <input matInput>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefon</mat-label>
+                    <input matInput>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Mesajul dumneavoastra</mat-label>
+                    <textarea matInput></textarea>
+                </mat-form-field>
+                <div class="flex justify-center">
+                    <button class="w-[80%]" mat-raised-button color="accent">Trimite mesajul</button>
+                </div>
+            </form>
+            <div class="flex justify-center">
+            </div>
         </div>
     </div>
 </div>
