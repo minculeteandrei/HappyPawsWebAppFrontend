@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./appointments-page.component.scss']
 })
 export class AppointmentsPageComponent {
-
+  selected: Date | null = null;
 }

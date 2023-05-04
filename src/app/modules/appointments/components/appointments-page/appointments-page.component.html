@@ -1,1 +1,54 @@
-<p>appointments-page works!</p>
+<div class="smth min-h-screen">
+    <div class="container lg:max-w-screen-lg mx-auto min-h-screen px-10 pt-10 flex flex-col">
+        <div class="md:flex md:flex-row">
+            <div class="basis-1/2">
+                <p class="text-2xl font-medium">Obtineti o rezervare online:</p>
+                <form class="flex flex-col md:max-w-xs mt-10">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nume Complet</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefon</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selectati animalul</mat-label>
+                        <mat-select>
+                            <!-- temporary -->
+                            <mat-option value="dog">Caine</mat-option>
+                            <mat-option value="cat">Pisica</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+            <div class="basis-1/2">
+                <p class="text-2xl font-medium">Alege data programarii:</p>
+                <form class="flex flex-col md:max-w-xs mt-10">
+                    <div class="max-md:flex max-md:justify-center">
+                        <mat-card class="schedule-calendar mb-8 max-w-xs max-md:w-full">
+                            <mat-calendar [(selected)]="selected"></mat-calendar>
+                        </mat-card>
+                    </div>
+                    <p>Selected date: {{selected}}</p>
+    
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ora</mat-label>
+                        <mat-select></mat-select>
+                    </mat-form-field>
+    
+                </form>
+            </div>
+        </div>
+        <div class="flex justify-center mt-auto">
+            <button class="w-[40%] mb-6" mat-raised-button color="accent">Creeaza programare</button>
+        </div>
+    </div>
+</div>
