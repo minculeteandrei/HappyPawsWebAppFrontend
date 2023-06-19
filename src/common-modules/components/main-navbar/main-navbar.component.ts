@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { PATHS } from 'src/common-modules/constants/constants';
+import { AuthService } from 'src/app/modules/login/services/auth.service';
 
 @Component({
   selector: 'app-main-navbar',
@@ -11,6 +12,7 @@ import { PATHS } from 'src/common-modules/constants/constants';
 })
 export class MainNavbarComponent {
   public paths = PATHS;
+  public loggedIn = this.authService.loggedIn;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -18,10 +20,14 @@ export class MainNavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
 
   onNavigateFromSidenav(path: string) {
     
+  }
+
+  onLogOut() {
+    this.authService.logOut();
   }
 
 }

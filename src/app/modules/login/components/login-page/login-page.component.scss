@@ -1,0 +1,26 @@
+::ng-deep .mdc-notched-outline__notch
+{
+  border-style: none;
+}
+
+:host {
+    ::ng-deep {
+        .mat-mdc-raised-button {
+            height: 50px;
+        }
+
+        .mat-mdc-outlined-button {
+            height: 50px;
+            border-width: 2px;
+            border-color: #e91e63;
+        }
+    }
+}
+
+.blue {
+    color: #1485ff;
+}
+
+a.blue:hover {
+    text-decoration: underline;
+}
