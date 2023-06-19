@@ -1,0 +1,68 @@
+<div class="smth min-h-screen">
+    <div class="container xl:max-w-screen-xl mx-auto flex flex-col">
+        <div class="md:flex md:flex-row">
+            <div class="basis-6/12">
+                <img class="object-fill" src="assets/images/registerDog.jpg" alt="">
+            </div>
+            <div class="basis-7/12 px-12 xl:px-0 pt-12">
+                <p class="text-2xl font-medium">Intra in cont</p>
+                <form class="flex flex-col md:max-w-xs mt-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nume</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline">
+                        <mat-label>Prenume</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefon</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Parola</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Repeta parola</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <div class="flex justify-center mt-auto">
+                        <button
+                            *ngIf="!registerButtonHover" 
+                            class="w-full login-button mb-12" 
+                            mat-raised-button color="accent"
+                            (mouseover)="registerButtonHover = true"
+                            (mouseleave)="registerButtonHover = false"
+                        >
+                            Creeaza cont
+                        </button>
+
+                        <button
+                            *ngIf="registerButtonHover" 
+                            class="w-full login-button mb-12" 
+                            mat-stroked-button color="accent"
+                            (mouseover)="registerButtonHover = true"
+                            (mouseleave)="registerButtonHover = false"
+                        >
+                            Creeaza cont
+                        </button>
+                    </div>
+                </form>
+                <div>
+                    <span>Ai deja cont? </span>
+                    <a [routerLink]="paths.LOGIN_PAGE" class="blue">Intra in cont</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
