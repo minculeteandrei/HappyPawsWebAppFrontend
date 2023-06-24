@@ -20,6 +20,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/contact/contact.module').then(m => m.ContactModule)  
   },
   { 
+    path: 'disease-prediction', 
+    // canActivate: [AuthenticatedGuard],
+    loadChildren: () => import('./modules/disease-prediction/disease-prediction.module').then(m => m.DiseasePredictionModule)  
+  },
+  { 
     path: 'login', 
     loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)  
   },
@@ -36,6 +41,7 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard],
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)  
   },
+  
   {
     path: '', 
     pathMatch: 'full',

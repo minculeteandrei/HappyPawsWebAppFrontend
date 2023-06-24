@@ -1,4 +1,5 @@
 export const PATHS =  {
+    DISEASE_PREDICTION_PAGE: '/disease-prediction',
     GALLERY_PAGE:  '/galerie',
     SERVICII_PAGE: '/servicii',
     APPOINTMENTS_PAGE: '/programari',

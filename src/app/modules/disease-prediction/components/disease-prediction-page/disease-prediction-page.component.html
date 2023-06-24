@@ -1,0 +1,83 @@
+<div class="smth min-h-screen">
+    <div class="container xl:max-w-screen-xl mx-auto min-h-screen px-10 pt-10 flex flex-col">
+        <div class="md:flex md:flex-row">
+            <div class="basis-1/2">
+                <p class="text-2xl font-medium">Alegeti simtome</p>
+                <mat-card class="mt-5 md:max-w-md info-card">
+                    <mat-card-content>
+                        <div class="flex flex-row">
+                            <mat-icon class="mt-2 mr-3 info-icon">info</mat-icon>
+                            <div>
+                                <span>Te rog sa alegi minim 3 simptome.</span>
+                                <span>Pentru o acuratete mai mare, alege cat mai multe</span>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <form class="flex flex-col md:max-w-md mt-10">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Alegeti simptome</mat-label>
+                        <mat-select [formControl]="symptoms" multiple>
+                            <mat-select-trigger>
+                                {{ $any(diseaseSymptoms)[symptoms.value?.[0]  || '']}}
+                                <span *ngIf="(symptoms.value?.length || 0) > 1" class="symptom-selection">
+                                    (+{{(symptoms.value?.length || 0) - 1}} {{symptoms.value?.length === 2 ? 'other' : 'others'}})
+                                </span>
+                            </mat-select-trigger>
+                            <mat-option 
+                                *ngFor="let symptom of Object.keys(diseaseSymptoms)" 
+                                [value]="symptom"
+                                [disabled]="isOptionDisabled(symptom)"
+                            >
+                                {{ $any(diseaseSymptoms)[symptom] }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+                <div class="flex">
+                        <mat-chip-listbox>
+                            <mat-chip
+                                *ngFor="let addedSymptom of symptoms.value"
+                                (removed)="removeSymptom(addedSymptom)"
+                            >
+                                {{ $any(diseaseSymptoms)[addedSymptom] }}
+                                <button matChipRemove>
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                            </mat-chip>
+                        </mat-chip-listbox>
+                </div>
+            </div>
+            <div class="basis-1/2 mt-5 md:mt-0">
+                <p class="text-2xl font-medium">Boli posibile</p>
+                <div class="mt-5 grid place-items-center h-80" *ngIf="loading">
+                    <mat-spinner [diameter]="100" class="content-center"></mat-spinner>
+                </div>
+                <div class="mt-5 mb-10 md:mb-0 block" *ngIf="predicted">
+                    <ngx-charts-pie-chart
+                        class="legend"
+                        [scheme]="chartOptions.colorScheme"
+                        [results]="chartOptions.data"
+                        [gradient]="true"
+                        [legend]="true"
+                        [legendPosition]="chartOptions.legendPosition"
+                        [tooltipText]="formatTooltipText"
+                        [labels]="true"
+                        [doughnut]="false"
+                    >
+                    </ngx-charts-pie-chart>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center mt-auto">
+            <button 
+                class="w-[40%] mb-6" 
+                mat-raised-button color="accent"
+                [disabled]="((symptoms.value?.length || 0) < 3) || loading"
+                (click)="onSubmitPredictionClicked()"
+            >
+                Analizeaza simptome
+            </button>
+        </div>
+    </div>
+</div>
