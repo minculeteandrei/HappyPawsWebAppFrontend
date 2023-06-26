@@ -18,6 +18,11 @@
                         <mat-label>Telefon</mat-label>
                         <input matInput>
                     </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Mesajul dumneavoastra</mat-label>
+                        <textarea matInput></textarea>
+                    </mat-form-field>
         
                     <mat-form-field appearance="outline">
                         <mat-label>Selectati animalul</mat-label>
@@ -34,20 +39,29 @@
                 <form class="flex flex-col md:max-w-xs mt-10">
                     <div class="max-md:flex max-md:justify-center">
                         <mat-card class="schedule-calendar mb-8 max-w-xs max-md:w-full">
-                            <mat-calendar [(selected)]="selected"></mat-calendar>
+                                <mat-calendar 
+                                    [(selected)]="selected" 
+                                    [minDate]="currentDate" 
+                                    [maxDate]="maxDate" 
+                                    (selectedChange)="refreshHours()"
+                                >
+                                </mat-calendar>
                         </mat-card>
                     </div>
-                    <!-- <p>Selected date: {{selected}}</p> -->
-    
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data selectata:</mat-label>
+                        <input matInput [value]="selected | date:'yy/M/d'" readonly="true">
+                    </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Ora</mat-label>
-                        <mat-select></mat-select>
+                        <mat-select [disabled]="loadingHours"></mat-select>
+                        <mat-spinner diameter="20" class="mx-2" *ngIf="loadingHours" matSuffix></mat-spinner>
                     </mat-form-field>
     
                 </form>
             </div>
         </div>
-        <div class="flex justify-center mt-auto">
+        <div class="flex justify-center mt-5">
             <button class="w-[40%] mb-6" mat-raised-button color="accent">Creeaza programare</button>
         </div>
     </div>
