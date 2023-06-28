@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AppointmentsPageComponent } from './components/appointments-page/appointments-page.component';
 import { AppointmentsRoutingModule } from './appointments-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,12 +12,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { AppointmentsTableComponent } from './components/appointments-table/appointments-table.component';
 
 @NgModule({
   declarations: [
-    AppointmentsPageComponent
+    AppointmentsPageComponent,
+    AppointmentsTableComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +34,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatNativeDateModule,
     MatCardModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
-  ]
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatTableModule,
+    ReactiveFormsModule
+  ],
+  providers: [DatePipe]
 })
 export class AppointmentsModule { }
