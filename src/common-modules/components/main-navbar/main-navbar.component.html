@@ -11,11 +11,18 @@
       <a mat-list-item [routerLink]="[paths.DISEASE_PREDICTION_PAGE]">Predictie Boala</a>
       <a mat-list-item [routerLink]="[paths.GALLERY_PAGE]">Galerie</a>
       <a mat-list-item [routerLink]="[paths.SERVICII_PAGE]">Servicii</a>
-      <a mat-list-item [routerLink]="[paths.APPOINTMENTS_PAGE]">Programari</a>
+      <a 
+        mat-list-item 
+        [routerLink]="[paths.APPOINTMENTS_PAGE]" 
+        *ngIf="hasAnyRole([role.USER, role.DOCTOR]) || !(loggedIn$ |async)"
+      >
+        Programari
+      </a>
       <a mat-list-item [routerLink]="[paths.SHOP_PAGE]">Magazin</a>
+      <a mat-list-item [routerLink]="[paths.SHOPPING_CART]">Cos</a>
       <a mat-list-item [routerLink]="[paths.CONTACT_PAGE]">Contact</a>
-      <a mat-list-item *ngIf="!loggedIn" [routerLink]="[paths.LOGIN_PAGE]">Log in</a>
-      <a mat-list-item *ngIf="loggedIn" (click)="onLogOut()">Log out</a>
+      <a mat-list-item *ngIf="!(loggedIn$ | async)" [routerLink]="[paths.LOGIN_PAGE]">Log in</a>
+      <a mat-list-item *ngIf="loggedIn$ | async" (click)="onLogOut()" class="cursor-pointer">Log out</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -36,11 +43,17 @@
         <a [routerLink]="[paths.DISEASE_PREDICTION_PAGE]">Predictie Boala</a>
         <a [routerLink]="[paths.GALLERY_PAGE]">Galerie</a>
         <a [routerLink]="[paths.SERVICII_PAGE]">Servicii</a>
-        <a [routerLink]="[paths.APPOINTMENTS_PAGE]">Programari</a>
+        <a 
+          [routerLink]="[paths.APPOINTMENTS_PAGE]"
+          *ngIf="hasAnyRole([role.USER, role.DOCTOR]) || !(loggedIn$ |async)"
+        >
+          Programari
+        </a>
         <a [routerLink]="[paths.SHOP_PAGE]">Magazin</a>
+        <a [routerLink]="[paths.SHOPPING_CART]">Cos</a>
         <a [routerLink]="[paths.CONTACT_PAGE]">Contact</a>
-        <a *ngIf="!loggedIn" [routerLink]="[paths.LOGIN_PAGE]">Log in</a>
-        <a *ngIf="loggedIn" (click)="onLogOut()">Log out</a>
+        <a *ngIf="!(loggedIn$ | async)" [routerLink]="[paths.LOGIN_PAGE]">Log in</a>
+        <a *ngIf="loggedIn$ | async" (click)="onLogOut()" class="cursor-pointer">Log out</a>
       </div>
     </mat-toolbar> 
     <ng-content></ng-content>

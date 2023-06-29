@@ -24,3 +24,14 @@
 a.blue:hover {
     text-decoration: underline;
 }
+
+::ng-deep .mat-mdc-form-field-error {
+    color: red;
+}
+
+.info-card {
+    background-color: #ffb1b1;
+    border-width: 4px;
+    border-color: #f71d1d;
+    border-radius: 0.5rem;
+}

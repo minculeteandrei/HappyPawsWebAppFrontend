@@ -20,6 +20,7 @@ export class AppointmentsPageComponent implements OnInit, OnDestroy{
   currentAvailableHours$: Observable<number[]>;
   animals = Animal;
   createApppointmentSubscription: Subscription;
+  
   createAppointmentForm = new FormGroup({
     animalName: new FormControl('', Validators.required),
     description: new FormControl('', [Validators.required, Validators.maxLength(100)]),

@@ -21,7 +21,7 @@ export class DiseasePredictionPageComponent implements OnDestroy{
   predicted = false;
   chartOptions = {
     colorScheme: {
-      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#32a852']
     } as Color,
     view: [700, 400] as [number, number],
     data: [] as any[],
@@ -66,11 +66,11 @@ export class DiseasePredictionPageComponent implements OnDestroy{
   }
 
   formatTooltipText(data: any) {
-    console.log(data);
     return `${data.data.label}: ${data.data.value}%`;
   }
 
   ngOnDestroy(): void {
-    this.predictionSubscription.unsubscribe();
+    if (this.predictionSubscription)
+      this.predictionSubscription.unsubscribe();
   }
 }

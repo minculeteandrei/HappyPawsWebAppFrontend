@@ -18,7 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   ],
 })
 export class AppointmentsTableComponent implements OnInit, OnDestroy{
-  dataSource$ = this.refreshTable();
+  dataSource$: Observable<Appointment[]>;
   currentAvailableHours$: Observable<number[]>;
   tableColumns = ['animal', 'animalName', 'date', 'description'];  
   columnNameMap = {
@@ -44,7 +44,7 @@ export class AppointmentsTableComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
       this.maxDate.setMonth(this.currentDate.getMonth() + 3);
-      this.refreshTable();
+      this.dataSource$ = this.refreshTable();
 
       this.refreshTableSubscription = this.appointmentService.refreshTableSubject
         .subscribe(_ => {this.dataSource$ = this.refreshTable()})

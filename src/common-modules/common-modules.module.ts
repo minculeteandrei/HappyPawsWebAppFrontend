@@ -10,12 +10,13 @@ import { MainNavbarComponent } from './components/main-navbar/main-navbar.compon
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { PipesModule } from './pipes/pipes.module';
 
 
 @NgModule({
   declarations: [
     MainNavbarComponent,
-    CarouselComponent
+    CarouselComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +27,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    PipesModule
   ],
   exports: [
     MainNavbarComponent

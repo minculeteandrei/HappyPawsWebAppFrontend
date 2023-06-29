@@ -1,0 +1,47 @@
+<div class="smth min-h-screen">
+    <div class="container xl:max-w-screen-xl mx-auto min-h-screen px-10 pt-10 flex flex-col">
+        <p class="text-2xl font-medium mb-5">Cos de cumparaturi</p>
+        <p *ngIf="noCart">Nu ai nimic in cart</p>
+
+        <ng-container *ngIf="!noCart">
+            <div class="flex flex-col gap-5">
+                <mat-card *ngFor="let item of cart.items">
+                    <mat-card-content>
+                        <div class="flex flex-row justify-between">
+                            <div>
+                                <mat-card-title>{{ item.product.name | title }}</mat-card-title>
+                                <p class="mt-2">{{ item.product.description }}</p>
+                                <p class="mt-3 font-medium">{{ item.product.price }} Lei</p>
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <mat-card-title>Cantitate</mat-card-title>
+                                <div class="flex justify-center">
+                                    <div class="flex flex-row">
+                                        <p>{{ item.quantity }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <div class="flex justify-end pr-5">
+                    <div>
+                        <p class="font-medium text-2xl">Total:</p>
+                        <p class="font-medium text-xl">{{ sum }} Lei</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center mt-5">
+                <button 
+                    class="w-[40%] mb-6" 
+                    mat-raised-button color="accent"
+                >
+                    <div class="flex flex-row">
+                        <span>Plaseaza comanda</span>
+                        <mat-spinner diameter="20" class="mx-2" *ngIf="false" matSuffix></mat-spinner>
+                    </div>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</div>
