@@ -5,37 +5,106 @@
                 <img class="object-fill" src="assets/images/registerDog.jpg" alt="">
             </div>
             <div class="basis-7/12 px-12 xl:px-0 pt-12">
-                <p class="text-2xl font-medium">Intra in cont</p>
-                <form class="flex flex-col md:max-w-xs mt-6">
+                <mat-card *ngIf="error" class="mb-5 md:max-w-xs info-card">
+                    <mat-card-content>
+                        {{ error }}    
+                    </mat-card-content>
+                </mat-card>
+                <div class="flex flex-row">
+                    <p class="text-2xl font-medium">Creeaza un cont</p>
+                    <mat-spinner diameter="20" class="mt-2 ml-2" *ngIf="loading"></mat-spinner>
+                </div>
+                <form (ngSubmit)="onRegisterSubmitted()" #registerForm="ngForm" class="flex flex-col md:max-w-xs mt-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Nume</mat-label>
-                        <input matInput>
+                        <input 
+                            matInput
+                            id="name"
+                            type="text" 
+                            name="name" 
+                            ngModel 
+                            required
+                            #name="ngModel"
+                        >
+                        <mat-error *ngIf="submitted && name.value.length === 0">Nume is required</mat-error>
                     </mat-form-field>
         
                     <mat-form-field appearance="outline">
                         <mat-label>Prenume</mat-label>
-                        <input matInput>
+                        <input 
+                            matInput
+                            id="prenume"
+                            type="text" 
+                            name="prenume" 
+                            ngModel 
+                            required
+                            #prenume="ngModel"
+                        >
+                        <mat-error *ngIf="submitted && prenume.value.length === 0">Prenume is required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
                         <mat-label>Telefon</mat-label>
-                        <input matInput>
+                        <input 
+                            matInput
+                            id="phone"
+                            type="text" 
+                            name="phone" 
+                            ngModel 
+                            required
+                            #phone="ngModel"
+                            pattern="[0-9]+"
+                        >
+                        <mat-error *ngIf="!phone.valid && phone.touched && phone.value.length > 0">Please enter a valid phone number</mat-error>
+                        <mat-error *ngIf="submitted && phone.value.length === 0">Phone is required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput>
+                        <mat-label for="name">Email</mat-label>
+                        <input 
+                            matInput 
+                            id="email"
+                            type="email" 
+                            name="email" 
+                            ngModel 
+                            email 
+                            required
+                            #email="ngModel"
+                        >
+                        <mat-error *ngIf="!email.valid && email.touched && email.value.length > 0">Please enter a valid email address</mat-error>
+                        <mat-error *ngIf="submitted && email.value.length === 0">Email is required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
-                        <mat-label>Parola</mat-label>
-                        <input matInput>
+                        <mat-label for="password">Parola</mat-label>
+                        <input 
+                            matInput 
+                            id="password" 
+                            type="password" 
+                            ngModel 
+                            name="password" 
+                            required
+                            #password="ngModel"
+                        >
+                        <mat-error *ngIf="submitted && password.value.length === 0">Password is required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
                         <mat-label>Repeta parola</mat-label>
-                        <input matInput>
+                        <input 
+                            matInput 
+                            id="repeatPassword" 
+                            type="password" 
+                            ngModel 
+                            name="repeatPassword" 
+                            required
+                            #repeatPassword='ngModel'
+                            [appRepeatPassword]="password.value"
+                        >
+                        <mat-error *ngIf="submitted && repeatPassword.value.length > 0 && repeatPassword.invalid">The passwords do not match</mat-error>
+                        <mat-error *ngIf="submitted && repeatPassword.value.length === 0">Password is required</mat-error>
                     </mat-form-field>
+
                     <div class="flex justify-center mt-auto">
                         <button
                             *ngIf="!registerButtonHover" 
@@ -43,16 +112,19 @@
                             mat-raised-button color="accent"
                             (mouseover)="registerButtonHover = true"
                             (mouseleave)="registerButtonHover = false"
+                            [disabled]="loading"
                         >
                             Creeaza cont
                         </button>
 
                         <button
-                            *ngIf="registerButtonHover" 
+                            *ngIf="registerButtonHover"
+                            type="submit"
                             class="w-full login-button mb-12" 
                             mat-stroked-button color="accent"
                             (mouseover)="registerButtonHover = true"
                             (mouseleave)="registerButtonHover = false"
+                            [disabled]="loading"
                         >
                             Creeaza cont
                         </button>

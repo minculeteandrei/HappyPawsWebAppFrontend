@@ -23,10 +23,20 @@
 
 mat-toolbar a {
   display: inline-block;
-  margin: 0 20px;
+  margin: 0 8px;
   color: white;
   text-decoration: none;
-  font-size: 21px;
+  font-size: 18px;
+}
+
+@media (min-width: 1200px) {
+  mat-toolbar a {
+    display: inline-block;
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+  }
 }
 
 .mat-toolbar.mat-primary {
@@ -38,4 +48,37 @@ mat-toolbar a {
 
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.mat-drawer-content {
+  overflow: hidden;
+  display: flex;
+}
+
+.logo{
+  text-shadow: 2px 2px 20px #000000
+}
+
+.logo:hover {
+  text-shadow: none;
+}
+
+.logo-container:hover img {
+  display: none;
+}
+
+.navbar-items a:after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    display: block;
+    transition: all 0.3s ease;
+    bottom: 33%;
+  }
+
+.navbar-items a:hover::after {
+    width: 3%;
+    height: 2px;
+    background-color: #fff;
 }

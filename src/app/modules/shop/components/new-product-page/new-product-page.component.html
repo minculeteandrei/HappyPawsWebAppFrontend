@@ -1,0 +1,54 @@
+<div class="smth flex flex-col grow">
+    <div class="container xl:max-w-screen-xl mx-auto grow px-10 pt-10 flex flex-col">
+        <p class="text-2xl font-medium mb-5">Adauga un produs</p>
+        <form [formGroup]="addProductForm" class="flex flex-col md:max-w-xs mt-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Nume</mat-label>
+                <input matInput type="text" formControlName="productName">
+                <mat-error *ngIf="$any(addProductForm.get('productName')).hasError('required')">Nume is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Pret</mat-label>
+                <input 
+                    matInput
+                    formControlName="price"
+                >
+                <mat-error *ngIf="$any(addProductForm.get('price')).hasError('required')">Pret is required</mat-error>
+                <mat-error *ngIf="$any(addProductForm.get('price')).hasError('pattern')">Please enter a valid price</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Descriere</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+                <mat-error *ngIf="$any(addProductForm.get('description')).hasError('required')">Description is required</mat-error>
+            </mat-form-field>
+            
+            <input 
+                type="file" 
+                (change)="onFileSelected($event)"
+                accept=".jpg,.jpeg,.png,.webp"
+                [multiple]="false"
+                #fileInput
+            >
+            <mat-card *ngIf="imageTypeError" class="md:max-w-xs mt-5 info-card">
+                <mat-card-content>
+                    <p>Formats allowed: .jpeg, .jpg, .png, .webp</p>
+                </mat-card-content>
+            </mat-card>
+        </form>
+        <div class="flex justify-center mt-5">
+            <button 
+                class="w-[40%] mb-6" 
+                mat-raised-button color="accent"
+                [disabled]="addProductForm.invalid || !imageUploaded"
+                (click)="onAddProductClicked()"
+            >
+                <div class="flex flex-row">
+                    <span>Adauga produs</span>
+                    <mat-spinner diameter="20" class="mx-2" *ngIf="false" matSuffix></mat-spinner>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
