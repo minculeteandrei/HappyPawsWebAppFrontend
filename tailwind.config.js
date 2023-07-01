@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.html"
   ],
   theme: {
-    extend: {},
+    extend: {
+      rotate: {
+        '35': '35deg',
+        '30': '30deg'
+      }
+    },
   },
   plugins: [],
 }

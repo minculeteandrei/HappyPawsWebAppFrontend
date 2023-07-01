@@ -1,42 +1,52 @@
-<div class="smth min-h-screen">
-    <div class="container xl:max-w-screen-xl mx-auto min-h-screen sm:px-10 pt-10 flex flex-col">
+<div class="smth flex flex-col grow">
+    <div class="container xl:max-w-screen-xl mx-auto grow px-10 pt-10 flex flex-col">
         <div class="flex flex-row px-10 sm:px-0 justify-between">
             <p class="text-2xl font-medium mb-5">Magazin</p>
-            <button mat-raised-button [routerLink]="[paths.SHOPPING_CART]"> Vezi cosul</button>
+            <div class="flex flex-row gap-5 h-5/6">
+                <button mat-raised-button [routerLink]="[paths.SHOPPING_CART]"> Vezi cosul</button>
+                <button *ngIf="isAdmin" mat-raised-button [routerLink]="[paths.NEW_PRODUCT]"> Adauga un produs</button>
+            </div>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-            <mat-card class="max-w-xs" *ngFor="let product of dataSource$ | async">
-                <mat-card-header>
-                    <mat-card-title class="leading-6">
-                        {{ product.name | title }}
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="">
-                    <img
-                        mat-card-image
-                        [src]="'assets/images/products/' + product.image"
-                        alt="Photo of a Shiba Inu"
-                        class="aspect-square mt-3"
-                        >
-                    <div class="mt-3">
-                        <p>{{ product.description }}</p>
-                    </div>
-                    <div class="mt-3">
-                        <p class="font-medium">{{ product.price }} Lei</p>
-                    </div>
-                    <div class="mt-3">
-                        <button mat-raised-button color="warn" (click)="onAddProductToCartClicked(product)">Adauga in cos</button>
-                        <button 
-                            mat-raised-button color="accent" 
-                            *ngIf="isAdmin"
-                            (click)="onDeleteProductClicked(product.id)"
-                            class="mt-2"
-                        >
-                            Sterge
-                        </button>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+        <div *ngIf="loadingShop" class="flex flex-row h-96 justify-center">
+                <div class="flex flex-col justify-center">
+                    <mat-spinner diameter="100" class="mx-2" matSuffix></mat-spinner>
+                </div>
+        </div>
+        <div *ngIf="dataSource$ | async as dataSource">
+            <div *ngIf="!loadingShop" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+                <mat-card class="max-w-xs" *ngFor="let product of dataSource">
+                    <mat-card-header>
+                        <mat-card-title class="leading-6">
+                            {{ product.name | title }}
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="">
+                        <img
+                            mat-card-image
+                            [src]="'assets/images/products/' + product.image"
+                            alt="Photo of a Shiba Inu"
+                            class="aspect-square mt-3"
+                            >
+                        <div class="mt-3">
+                            <p>{{ product.description }}</p>
+                        </div>
+                        <div class="mt-3">
+                            <p class="font-medium">{{ product.price }} Lei</p>
+                        </div>
+                        <div class="mt-3">
+                            <button mat-raised-button color="warn" (click)="onAddProductToCartClicked(product)">Adauga in cos</button>
+                            <button 
+                                mat-raised-button color="accent" 
+                                *ngIf="isAdmin"
+                                (click)="onDeleteProductClicked(product)"
+                                class="mt-2"
+                            >
+                                Sterge
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>

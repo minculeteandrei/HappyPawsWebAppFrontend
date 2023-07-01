@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShopService } from '../../services/shop.service';
-import { EMPTY, Observable, Subject, catchError, take, takeUntil } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, finalize, take, takeUntil } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Product } from '../../interfaces/interfaces';
@@ -10,6 +10,9 @@ import { PATHS } from 'src/common-modules/constants/constants';
 
 @Component({
   selector: 'app-shop-page',
+  host: {
+    class: "flex flex-col grow"
+  },
   templateUrl: './shop-page.component.html',
   styleUrls: ['./shop-page.component.scss']
 })
@@ -19,6 +22,7 @@ export class ShopPageComponent implements OnDestroy, OnInit{
   cart: Cart;
   isAdmin = false;
   paths = PATHS;
+  loadingShop = false;
 
   constructor(
     private shopService: ShopService,
@@ -35,6 +39,7 @@ export class ShopPageComponent implements OnDestroy, OnInit{
   }
 
   fetchProducts() {
+    this.loadingShop = true;
     return this.shopService.getProducts()
       .pipe(
         takeUntil(this.destroy$),
@@ -47,7 +52,8 @@ export class ShopPageComponent implements OnDestroy, OnInit{
           else
             this.router.navigateByUrl('/');
           return EMPTY;
-        })
+        }),
+        finalize(() => {this.loadingShop = false;})
       )
   }
 
@@ -71,18 +77,22 @@ export class ShopPageComponent implements OnDestroy, OnInit{
     this.snackBar.open('Product added to cart', 'Dismiss', { duration: 3000 });
   }
 
-  onDeleteProductClicked(id: number) {
-    this.shopService.deleteProduct(id)
-      .pipe(
-        takeUntil(this.destroy$),
-        catchError(_ => {
-          this.snackBar.open('Failed to delete product', 'Dismiss', { duration: 3000 });
-          return EMPTY;
-        })
-      ).subscribe(_ => {
-        this.snackBar.open('Product deleted successfully', 'Dismiss', { duration: 3000 });
-        this.dataSource$ = this.fetchProducts();
-      });
+  onDeleteProductClicked(product: Product) {
+    if(product.id) {
+      this.shopService.deleteProduct(product.id)
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError(_ => {
+            this.snackBar.open('Failed to delete product', 'Dismiss', { duration: 3000 });
+            return EMPTY;
+          })
+        ).subscribe(_ => {
+          this.cart.removeProduct(product, true);
+          localStorage.setItem('cart', JSON.stringify(this.cart));
+          this.snackBar.open('Product deleted successfully', 'Dismiss', { duration: 3000 });
+          this.dataSource$ = this.fetchProducts();
+        });
+    }
   }
 
   ngOnDestroy(): void {

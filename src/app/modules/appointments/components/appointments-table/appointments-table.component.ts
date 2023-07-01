@@ -37,9 +37,11 @@ export class AppointmentsTableComponent implements OnInit, OnDestroy{
   selectedHour: number | null = null;
   currentDate = new Date();
   maxDate = new Date();
+  invalidDateError = false;
   rescheduleSubscription: Subscription;
   deleteSubscription: Subscription;
   refreshTableSubscription: Subscription;
+
   constructor (private appointmentService: AppointmentService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
@@ -62,9 +64,20 @@ export class AppointmentsTableComponent implements OnInit, OnDestroy{
       )
   }
 
+  isValidDate(date: Date, min: Date, max: Date) {
+    return date.getTime() > min.getTime() && 
+      date.getTime() < max.getTime();
+  }
+
   refreshHours() {
     if(this.selectedDate){
+      if(!this.isValidDate(this.selectedDate, this.currentDate, this.maxDate)) {
+        this.invalidDateError = true;
+        return;
+      }
+      
       this.loadingHours = true;
+      this.invalidDateError = false;
         
       this.currentAvailableHours$ = this.appointmentService.getAvailableHours(
         this.selectedDate?.getFullYear(),
@@ -102,12 +115,14 @@ export class AppointmentsTableComponent implements OnInit, OnDestroy{
           }),
           finalize(() => {this.loadingRescheduleOrDelete = false;})
         ).subscribe(_ => {
+          this.snackBar.open('Appointment rescheduled successfully', 'Dismiss', { duration: 3000 });
           this.dataSource$ = this.refreshTable();
         })
     }
   }
 
   onDeleteAppointmentClicked(appointment: Appointment) {
+    this.loadingRescheduleOrDelete = true;
     this.deleteSubscription = this.appointmentService.deleteAppointment(appointment.id)
     .pipe(
       catchError(_ => {
@@ -116,6 +131,7 @@ export class AppointmentsTableComponent implements OnInit, OnDestroy{
       }),
       finalize(() => {this.loadingRescheduleOrDelete = false;})
     ).subscribe(_ => {
+      this.snackBar.open('Appointment deleted successfully', 'Dismiss', { duration: 3000 });
       this.dataSource$ = this.refreshTable();
     })
   }

@@ -35,10 +35,11 @@ export class AuthService {
   }
 
   public logOut() {
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("expires_at");
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
     localStorage.removeItem('role');
     localStorage.removeItem('email');
+    localStorage.removeItem('cart');
     this.loginSubject$.next(false);
 
     this.router.navigateByUrl('');

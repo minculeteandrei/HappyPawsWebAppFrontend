@@ -8,6 +8,9 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointments-page',
+  host: {
+    class: "flex flex-col grow"
+  },
   templateUrl: './appointments-page.component.html',
   styleUrls: ['./appointments-page.component.scss'],
 })
@@ -48,7 +51,7 @@ export class AppointmentsPageComponent implements OnInit, OnDestroy{
   refreshHours() {
     if(this.selected){
       this.createAppointmentForm.get('date')
-        ?.setValue(this.datePipe.transform(this.selected, 'd/M/yy'));
+        ?.setValue(this.datePipe.transform(this.selected, 'dd/MM/yy'));
       this.loadingHours = true;
         
       this.currentAvailableHours$ = this.appointmentService.getAvailableHours(

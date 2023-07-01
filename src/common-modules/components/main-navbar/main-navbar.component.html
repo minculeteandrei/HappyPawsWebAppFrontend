@@ -25,7 +25,7 @@
       <a mat-list-item *ngIf="loggedIn$ | async" (click)="onLogOut()" class="cursor-pointer">Log out</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="min-h-screen flex flex-col">
     <mat-toolbar color="primary" fxLayout="row">
       <button
         type="button"
@@ -35,11 +35,28 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <a routerLink="/">
-        vet_app_frontend
-      </a>
+      <button routerLink="/">
+        <div class="logo-container">
+          <p class="ml-6 text-4xl logo relative">Happy Paws</p>
+          <img 
+            src="assets/images/paw.png" 
+            alt="cat image"
+            class="invisible lg:visible w-7 absolute top-1 left-12 rotate-35"
+          >
+          <img 
+            src="assets/images/paw.png" 
+            alt="cat image"
+            class="invisible lg:visible w-6 absolute top-8 left-3 -rotate-45"
+          >
+          <img 
+            src="assets/images/paw.png" 
+            alt="cat image"
+            class="invisible lg:visible w-8 absolute top-0 left-4 -rotate-30"
+          >
+        </div>
+      </button>
       <span fxFlex></span>
-      <div fxHide fxShow.gt-xs>
+      <div fxHide fxShow.gt-sm class="navbar-items">
         <a [routerLink]="[paths.DISEASE_PREDICTION_PAGE]">Predictie Boala</a>
         <a [routerLink]="[paths.GALLERY_PAGE]">Galerie</a>
         <a [routerLink]="[paths.SERVICII_PAGE]">Servicii</a>
@@ -55,7 +72,9 @@
         <a *ngIf="!(loggedIn$ | async)" [routerLink]="[paths.LOGIN_PAGE]">Log in</a>
         <a *ngIf="loggedIn$ | async" (click)="onLogOut()" class="cursor-pointer">Log out</a>
       </div>
-    </mat-toolbar> 
-    <ng-content></ng-content>
+    </mat-toolbar>
+    <div class="grow flex flex-col">
+      <ng-content ></ng-content>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

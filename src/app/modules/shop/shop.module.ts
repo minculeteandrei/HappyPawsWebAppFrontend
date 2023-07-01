@@ -8,13 +8,19 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PipesModule } from "../../../common-modules/pipes/pipes.module";
 import { CartPageComponent } from './components/cart-page/cart-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { NewProductPageComponent } from './components/new-product-page/new-product-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 
 @NgModule({
     declarations: [
         ShopPageComponent,
-        CartPageComponent
+        CartPageComponent,
+        NewProductPageComponent
     ],
     imports: [
         ShopRoutingModule,
@@ -23,7 +29,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatButtonModule,
         MatSnackBarModule,
         PipesModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule
     ]
 })
 export class ShopModule { }

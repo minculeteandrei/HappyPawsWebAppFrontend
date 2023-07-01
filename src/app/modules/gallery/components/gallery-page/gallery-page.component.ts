@@ -4,6 +4,9 @@ import { IMAGES_PATH_GALLERY } from 'src/app/constants/constants';
 
 @Component({
   selector: 'app-gallery-page',
+  host: {
+    class: "flex flex-col grow"
+  },
   templateUrl: './gallery-page.component.html',
   styleUrls: ['./gallery-page.component.scss']
 })

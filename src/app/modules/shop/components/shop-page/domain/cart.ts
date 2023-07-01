@@ -21,10 +21,20 @@ export class Cart {
         }
     }
 
-    public removeProduct(product: Product) {
+    public canDecrease(product: Product) {
+        const prodIndex = this.items.findIndex(_ => _.product.id === product.id);
+        return this.items[prodIndex].quantity > 1;
+    }
+
+    public removeProduct(product: Product, full?: boolean) {
         for (let i = 0; i < this.items.length; i++) {
             if(this.items[i].product.id === product.id) {
-                this.items.splice(i, 1);
+                if(full){
+                    this.items.splice(i, 1);
+                    return;
+                }
+                if(this.items[i].quantity > 1)
+                    this.items[i].quantity--;
                 return;
             }
         }

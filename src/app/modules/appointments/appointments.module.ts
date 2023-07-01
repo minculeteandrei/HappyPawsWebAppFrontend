@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -40,6 +40,6 @@ import { AppointmentsTableComponent } from './components/appointments-table/appo
     MatTableModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe]
+  providers: [DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class AppointmentsModule { }

@@ -7,5 +7,6 @@ export const PATHS =  {
     LOGIN_PAGE: '/login',
     REGISTER_PAGE: '/register',
     SHOP_PAGE: '/shop',
-    SHOPPING_CART: '/shop/cart'
+    SHOPPING_CART: '/shop/cart',
+    NEW_PRODUCT: '/shop/add'
 }

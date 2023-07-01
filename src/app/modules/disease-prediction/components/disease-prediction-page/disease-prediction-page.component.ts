@@ -8,6 +8,9 @@ import { Color, LegendPosition } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-disease-prediction-page',
+  host: {
+    class: "flex flex-col grow"
+  },
   templateUrl: './disease-prediction-page.component.html',
   styleUrls: ['./disease-prediction-page.component.scss']
 })
