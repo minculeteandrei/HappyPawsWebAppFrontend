@@ -1,4 +1,4 @@
-import { CartItem, Product } from "../../../interfaces/interfaces";
+import { CartItem, Product } from "../interfaces/interfaces";
 
 export class Cart {
     public readonly items: CartItem[]

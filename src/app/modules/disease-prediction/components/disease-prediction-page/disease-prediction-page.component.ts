@@ -24,7 +24,7 @@ export class DiseasePredictionPageComponent implements OnDestroy{
   predicted = false;
   chartOptions = {
     colorScheme: {
-      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#32a852']
+      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#0099ff']
     } as Color,
     view: [700, 400] as [number, number],
     data: [] as any[],
@@ -54,15 +54,14 @@ export class DiseasePredictionPageComponent implements OnDestroy{
     this.predictionSubscription = this.dpService.getDiseasePrediction(this.symptoms.value as unknown as string[])
       .pipe(
         catchError(_ => {
-          this.snackBar.open('Failed to predict disease', 'Dismiss', { duration: 3000 });
+          this.snackBar.open('Nu s-a putut prezice bolile posibile', 'Dismiss', { duration: 3000 });
           return EMPTY;
         }),
         finalize(() => {this.loading = false;})
       )
       .subscribe((response: any) => {
         let diseaseData: any[] = [];
-        Object.keys(response).forEach(_ => {diseaseData.push({name: _, value: response[_]})});
-        console.log(diseaseData);
+        Object.keys(response).forEach(_ => {diseaseData.push({name: (_).split('_').join(' '), value: response[_]})});
         this.chartOptions.data = diseaseData;
         this.predicted = true;
       });

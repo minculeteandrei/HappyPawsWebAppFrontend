@@ -1,12 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShopService } from '../../services/shop.service';
-import { EMPTY, Observable, Subject, catchError, finalize, take, takeUntil } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, finalize, switchMap, takeUntil } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Product } from '../../interfaces/interfaces';
-import { Cart } from './domain/cart';
+import { Cart } from '../../domain/cart';
 import { AuthService } from 'src/app/modules/login/services/auth.service';
 import { PATHS } from 'src/common-modules/constants/constants';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialog } from 'src/common-modules/components/confirmation-dialog/confirmation-dialog.component';
+import { DialogAction, Resource } from 'src/common-modules/interfaces/interface';
 
 @Component({
   selector: 'app-shop-page',
@@ -28,7 +31,8 @@ export class ShopPageComponent implements OnDestroy, OnInit{
     private shopService: ShopService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +48,7 @@ export class ShopPageComponent implements OnDestroy, OnInit{
       .pipe(
         takeUntil(this.destroy$),
         catchError(_ => {
-          this.snackBar.open('Failed to fetch products', 'Dismiss', { duration: 3000 });
+          this.snackBar.open('Nu s-au putut incarca produsele', 'Dismiss', { duration: 3000 });
           const prevUrl = localStorage.getItem('previous_url');
 
           if(prevUrl)
@@ -67,36 +71,40 @@ export class ShopPageComponent implements OnDestroy, OnInit{
   }
 
   onAddProductToCartClicked(product: Product) {
-    if(!this.authService.isLoggedIn()){
-      this.router.navigateByUrl(PATHS.LOGIN_PAGE);
-      return;
-    }
-
     this.cart.addProduct(product);
     localStorage.setItem('cart', JSON.stringify(this.cart));
-    this.snackBar.open('Product added to cart', 'Dismiss', { duration: 3000 });
+    this.snackBar.open('Produsul a fost adaugat in cos', 'Dismiss', { duration: 3000 });
+  }
+
+  openDialog(action: string, resourceName: string) {
+    return this.dialog.open(ConfirmationDialog, {data: {action, resourceName}});
   }
 
   onDeleteProductClicked(product: Product) {
-    if(product.id) {
-      this.shopService.deleteProduct(product.id)
-        .pipe(
-          takeUntil(this.destroy$),
-          catchError(_ => {
-            this.snackBar.open('Failed to delete product', 'Dismiss', { duration: 3000 });
+      this.openDialog(DialogAction.Delete, Resource.Product).afterClosed()
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(_ => {
+          if(_ && product.id) {
+              this.loadingShop = true;
+              return this.shopService.deleteProduct(product.id);
+            }
             return EMPTY;
-          })
-        ).subscribe(_ => {
-          this.cart.removeProduct(product, true);
-          localStorage.setItem('cart', JSON.stringify(this.cart));
-          this.snackBar.open('Product deleted successfully', 'Dismiss', { duration: 3000 });
-          this.dataSource$ = this.fetchProducts();
-        });
-    }
+          }),
+        catchError(_ => {
+          this.snackBar.open('Nu s-a putut sterge produsul', 'Dismiss', { duration: 3000 });
+          return EMPTY;
+        }),
+        finalize(() => {this.loadingShop = false;})
+      ).subscribe(_ => {
+        this.cart.removeProduct(product, true);
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+        this.snackBar.open('Produsul a fost sters cu succes', 'Dismiss', { duration: 3000 });
+        this.dataSource$ = this.fetchProducts();
+      });
   }
 
   ngOnDestroy(): void {
-
     this.destroy$.next();
     this.destroy$.complete();
   }

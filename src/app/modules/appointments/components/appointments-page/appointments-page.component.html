@@ -75,9 +75,12 @@
                             </mat-option>
                         </mat-select>
                         <mat-error 
-                            *ngIf="$any(createAppointmentForm.get('hour')).hasError('required')"
+                            *ngIf="$any(createAppointmentForm.get('hour')).hasError('required') && !noAvailableHoursError"
                         >
                             Campul este necesar
+                        </mat-error>
+                        <mat-error *ngIf="noAvailableHoursError">
+                            Ziua selectata nu are ore disponibile. Te rugam sa alegi alta zi
                         </mat-error>
                         <mat-spinner diameter="20" class="mx-2" *ngIf="loadingHours" matSuffix></mat-spinner>
                     </mat-form-field>

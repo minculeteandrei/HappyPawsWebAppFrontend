@@ -24,9 +24,9 @@ export class NewProductPageComponent implements OnDestroy{
   formData = new FormData();
   imageTypeError = false;
   addProductForm = new FormGroup({
-    productName: new FormControl('', Validators.required),
+    productName: new FormControl('', [Validators.required, Validators.maxLength(40)]),
     price: new FormControl('', [Validators.pattern(/[0-9]+/g), Validators.required]),
-    description: new FormControl('', Validators.required),
+    description: new FormControl('', [Validators.required, Validators.maxLength(70)]),
   });
 
   constructor(
@@ -76,12 +76,12 @@ export class NewProductPageComponent implements OnDestroy{
           this.formData,
         ).pipe(
           catchError(_ => {
-            this.snackBar.open('Failed to add new product', 'Dismiss', { duration: 3000 });
+            this.snackBar.open('Nu s-a putut adauga un produs nou', 'Dismiss', { duration: 3000 });
             return EMPTY;
           }),
           finalize(() => { this.loadingAddProduct = false; })
         ).subscribe(_ => {
-          this.snackBar.open('Successfully added new product', 'Dismiss', { duration: 3000 });
+          this.snackBar.open('Produsul a fost adaugat cu succes', 'Dismiss', { duration: 3000 });
           // this.formData.forEach(_ => {this.formData.delete(_.toString())});
           this.router.navigateByUrl(PATHS.SHOP_PAGE);
         });

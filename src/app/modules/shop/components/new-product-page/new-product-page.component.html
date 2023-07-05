@@ -6,6 +6,7 @@
                 <mat-label>Nume</mat-label>
                 <input matInput type="text" formControlName="productName">
                 <mat-error *ngIf="$any(addProductForm.get('productName')).hasError('required')">Nume is required</mat-error>
+                <mat-error *ngIf="addProductForm.controls.productName.hasError('maxlength')">Max length for name is 40 chracters</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -22,6 +23,7 @@
                 <mat-label>Descriere</mat-label>
                 <textarea matInput formControlName="description"></textarea>
                 <mat-error *ngIf="$any(addProductForm.get('description')).hasError('required')">Description is required</mat-error>
+                <mat-error *ngIf="addProductForm.controls.description.hasError('maxlength')">Max length for description is 70 chracters</mat-error>
             </mat-form-field>
             
             <input 
@@ -41,12 +43,12 @@
             <button 
                 class="w-[40%] mb-6" 
                 mat-raised-button color="accent"
-                [disabled]="addProductForm.invalid || !imageUploaded"
+                [disabled]="addProductForm.invalid || !imageUploaded || loadingAddProduct"
                 (click)="onAddProductClicked()"
             >
                 <div class="flex flex-row">
                     <span>Adauga produs</span>
-                    <mat-spinner diameter="20" class="mx-2" *ngIf="false" matSuffix></mat-spinner>
+                    <mat-spinner diameter="20" class="mx-2" *ngIf="loadingAddProduct" matSuffix></mat-spinner>
                 </div>
             </button>
         </div>
