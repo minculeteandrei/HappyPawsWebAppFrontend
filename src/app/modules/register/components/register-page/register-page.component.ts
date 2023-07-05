@@ -41,12 +41,12 @@ export class RegisterPageComponent {
           if (error.status === 409) 
             this.error = 'User with entered email already existent';
           else
-            this.snackBar.open('Failed to register', 'Dismiss', { duration: 3000 });
+            this.snackBar.open('A aparut o eroare', 'Dismiss', { duration: 3000 });
           return EMPTY
         }),
         finalize(() => {this.loading = false;})
       ).subscribe(_ => {
-        this.snackBar.open('Registered successfully', 'Dismiss', { duration: 3000 });
+        this.snackBar.open('Ai fost inregistrat cu succes', 'Dismiss', { duration: 3000 });
         this.router.navigateByUrl('/login');
       })
     }

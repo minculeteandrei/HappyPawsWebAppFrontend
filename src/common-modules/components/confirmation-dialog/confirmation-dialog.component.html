@@ -1,0 +1,22 @@
+<div class="h-40 flex flex-col">
+    <div class="flex flex-row justify-center px-5 mt-5">
+        <p 
+            *ngIf="data.resourceName === resource.Appointment" 
+            class="text-xl"
+        >
+            Esti sigur ca vrei sa {{ data.action }} aceasta {{ data.resourceName }}?
+        </p>
+        <p 
+            *ngIf="data.resourceName === resource.Product" 
+            class="text-xl"
+        >
+            Esti sigur ca vrei sa {{ data.action }} acest {{ data.resourceName }}?
+        </p>
+    </div>
+    <div class="grow flex flex-col justify-end mb-5 px-5">
+        <div class="flex flex-row gap-5">
+            <button mat-raised-button [mat-dialog-close]="true">Da</button>
+            <button mat-raised-button (click)="onNoClick()">Nu</button>
+        </div>
+    </div>
+</div>

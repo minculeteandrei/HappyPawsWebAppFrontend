@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Cart } from '../shop-page/domain/cart';
+import { Cart } from '../../domain/cart';
 import { CartItem, Product } from '../../interfaces/interfaces';
 import { EMPTY, Subscription, catchError, finalize } from 'rxjs';
 import { ShopService } from '../../services/shop.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/modules/login/services/auth.service';
+import { Router } from '@angular/router';
+import { PATHS } from 'src/common-modules/constants/constants';
 
 @Component({
   selector: 'app-cart-page',
@@ -19,7 +22,12 @@ export class CartPageComponent implements OnInit, OnDestroy{
   createOrderSubscription: Subscription;
   loadingOrder = false;
 
-  constructor(private shopService: ShopService, private snackBar: MatSnackBar) {}
+  constructor(
+    private shopService: ShopService, 
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
   
   ngOnInit(): void {
     const cartString = localStorage.getItem('cart');
@@ -64,17 +72,22 @@ export class CartPageComponent implements OnInit, OnDestroy{
   }
 
   onCreateOrderClicked() {
+    if(!this.authService.isLoggedIn()){
+      this.router.navigateByUrl(PATHS.LOGIN_PAGE);
+      return;
+    }
+
     if(this.cart) {
       this.loadingOrder = true;
       this.createOrderSubscription = this.shopService.postOrder(this.cart)
         .pipe(
           catchError(_ => {
-            this.snackBar.open('Failed create order', 'Dismiss', { duration: 3000 });
+            this.snackBar.open('Nu s-a putut creea programarea', 'Dismiss', { duration: 3000 });
             return EMPTY;
           }),
           finalize(() => {this.loadingOrder = false;})
         ).subscribe(_ => {
-          this.snackBar.open('Order created successfully', 'Dismiss', { duration: 3000 });
+          this.snackBar.open('Comanda a fost creeata cu succes', 'Dismiss', { duration: 3000 });
           this.clearCart();
         })
     }

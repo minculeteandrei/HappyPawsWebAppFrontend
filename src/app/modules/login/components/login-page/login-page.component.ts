@@ -37,7 +37,7 @@ export class LoginPageComponent {
               this.error = 'Invalid email or password';
             else {
               console.log(error);
-              this.snackBar.open('Failed to login', 'Dismiss', { duration: 3000 });
+              this.snackBar.open('A aparut o eroare', 'Dismiss', { duration: 3000 });
             }
 
             return EMPTY;

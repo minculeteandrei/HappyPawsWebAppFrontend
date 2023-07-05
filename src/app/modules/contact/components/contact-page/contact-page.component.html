@@ -24,29 +24,60 @@
                 <!-- <p class="text-2xl font-medium mt-12 ml-6">Lasa-ne o nota:</p> -->
             </div>
             <div class="basis-7/12 max-md:px-6">
-                <p class="text-2xl font-medium mb-10 pt-10">Trimite-ne un mesaj:</p>
-                <form class="flex flex-col md:max-w-xs">
+                <div class="flex flex-row">
+                    <p class="text-2xl font-medium mb-10 pt-10">Trimite-ne un mesaj</p>
+                    <mat-spinner diameter="20" class="mt-12 ml-2" *ngIf="loadingUserData"></mat-spinner>
+                </div>
+                <form [formGroup]="contactForm" class="flex flex-col md:max-w-xs">
                     <mat-form-field appearance="outline">
                         <mat-label>Nume Complet</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="numeComplet">
+                        <mat-error *ngIf="contactForm.controls.numeComplet.hasError('required')">
+                            Campul este necesar
+                        </mat-error>
                     </mat-form-field>
         
                     <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="email">
+                        <mat-error *ngIf="contactForm.controls.email.hasError('required')">
+                            Campul este necesar
+                        </mat-error>
+                        <mat-error *ngIf="contactForm.controls.email.hasError('email')">
+                            Emailul introdus nu este valid
+                        </mat-error>
                     </mat-form-field>
         
                     <mat-form-field appearance="outline">
                         <mat-label>Telefon</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="telefon">
+                        <mat-error *ngIf="contactForm.controls.telefon.hasError('required')">
+                            Campul este necesar
+                        </mat-error>
+                        <mat-error *ngIf="contactForm.controls.telefon.hasError('pattern')">
+                            Numarul de telefon introdus nu este valid
+                        </mat-error>
                     </mat-form-field>
         
                     <mat-form-field appearance="outline">
                         <mat-label>Mesajul dumneavoastra</mat-label>
-                        <textarea matInput></textarea>
+                        <textarea matInput formControlName="message"></textarea>
+                        <mat-error *ngIf="contactForm.controls.message.hasError('required')">
+                            Campul este necesar
+                        </mat-error>
                     </mat-form-field>
                     <div class="flex justify-center">
-                        <button class="w-[80%]" mat-raised-button color="accent">Trimite mesajul</button>
+                        <button 
+                            class="w-[80%]" 
+                            mat-raised-button color="accent"
+                            [disabled]="contactForm.invalid || loadingSendMessage"
+                            (click)="onMessageSentClicked()"
+                        >
+                            <div class="flex flex-row">
+                                <span>Trimite mesajul</span>
+                                <mat-spinner diameter="20" class="mx-2" *ngIf="loadingSendMessage" matSuffix></mat-spinner>
+                            </div>
+                        </button>
                     </div>
                 </form>
             </div>

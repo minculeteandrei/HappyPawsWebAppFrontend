@@ -23,10 +23,12 @@ export class AuthService {
             eat: number
           } = jwtDecode(authResult.idToken);
         
-          localStorage.setItem('email', decodedJwt.email);
-          localStorage.setItem('role', decodedJwt.role);
-          localStorage.setItem('id_token', authResult.idToken);
-          localStorage.setItem('expires_at', JSON.stringify(decodedJwt.eat.valueOf()));
+          this.initLogInStorage(
+            decodedJwt.email,
+            decodedJwt.role,
+            authResult.idToken,
+            JSON.stringify(decodedJwt.eat.valueOf())
+          );
 
           this.loginSubject$.next(true);
         }),
@@ -34,12 +36,24 @@ export class AuthService {
       );
   }
 
-  public logOut() {
+  private initLogInStorage(email: string, role: string, token: string, expires_at: string) {
+    localStorage.removeItem('cart');
+    localStorage.setItem('email', email);
+    localStorage.setItem('role', role);
+    localStorage.setItem('id_token', token);
+    localStorage.setItem('expires_at', expires_at);
+  }
+
+  private initLogOutStorage() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('role');
     localStorage.removeItem('email');
     localStorage.removeItem('cart');
+  }
+
+  public logOut() {
+    this.initLogOutStorage();
     this.loginSubject$.next(false);
 
     this.router.navigateByUrl('');

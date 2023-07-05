@@ -16,11 +16,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { AppointmentsTableComponent } from './components/appointments-table/appointments-table.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialog } from '../../../common-modules/components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     AppointmentsPageComponent,
-    AppointmentsTableComponent
+    AppointmentsTableComponent,
+    ConfirmationDialog
   ],
   imports: [
     CommonModule,
@@ -38,7 +41,8 @@ import { AppointmentsTableComponent } from './components/appointments-table/appo
     MatExpansionModule,
     MatIconModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })

@@ -11,12 +11,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { PipesModule } from './pipes/pipes.module';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
   declarations: [
     MainNavbarComponent,
     CarouselComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { PipesModule } from './pipes/pipes.module';
     PipesModule
   ],
   exports: [
-    MainNavbarComponent
+    MainNavbarComponent,
+    FooterComponent
   ]
 })
 export class CommonModulesModule { }

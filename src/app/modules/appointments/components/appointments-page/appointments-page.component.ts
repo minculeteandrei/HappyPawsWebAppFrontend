@@ -22,6 +22,7 @@ export class AppointmentsPageComponent implements OnInit, OnDestroy{
   loadingCreateAppointment = false;
   currentAvailableHours$: Observable<number[]>;
   animals = Animal;
+  noAvailableHoursError = false;
   createApppointmentSubscription: Subscription;
   
   createAppointmentForm = new FormGroup({
@@ -50,6 +51,7 @@ export class AppointmentsPageComponent implements OnInit, OnDestroy{
   
   refreshHours() {
     if(this.selected){
+      this.noAvailableHoursError = false;
       this.createAppointmentForm.get('date')
         ?.setValue(this.datePipe.transform(this.selected, 'dd/MM/yy'));
       this.loadingHours = true;
@@ -67,9 +69,15 @@ export class AppointmentsPageComponent implements OnInit, OnDestroy{
         }),
         tap(_ => {
           this.createAppointmentForm.get('hour')?.setValue(null);
+          if(_.length === 0) {
+            this.noAvailableHoursError = true;
+            this.createAppointmentForm.get('hour')?.markAllAsTouched();
+          } else {
+            this.createAppointmentForm.get('hour')?.markAsUntouched();
+          }
         }),
         catchError(_ => {
-          this.snackBar.open('Failed to fetch hours', 'Dismiss', { duration: 3000 });
+          this.snackBar.open('Nu s-au putut incarca orele disponibile', 'Dismiss', { duration: 3000 });
           return of([] as number[]);
         }),
         finalize(() => { this.loadingHours = false; })
@@ -84,15 +92,18 @@ export class AppointmentsPageComponent implements OnInit, OnDestroy{
         this.createApppointmentSubscription = this.appointmentService.postAppointment(newAppointment)
           .pipe(
             catchError(_ => {
-              this.snackBar.open('Failed to create new appointment', 'Dismiss', { duration: 3000 });
+              this.snackBar.open('Nu s-a putut creea programarea', 'Dismiss', { duration: 3000 });
               return EMPTY;
             }),
             finalize(() => {this.loadingCreateAppointment = false;})
           ).subscribe(_ => {
-            this.snackBar.open('Appointment created successfully', 'Dismiss', { duration: 3000 });
+            this.snackBar.open('Programarea a fost creeata cu succes', 'Dismiss', { duration: 3000 });
             this.appointmentService.refreshTableSubject.next();
             this.refreshHours();
           });
+        
+        this.createAppointmentForm.reset({});
+        this.selected = this.currentDate;
       }      
   }
 
